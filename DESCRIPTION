@@ -14,3 +14,5 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2
 imports: ranger
+URL: https://github.com/dkainer/iterativeRF
+BugReports: https://github.com/dkainer/iterativeRF/issues
