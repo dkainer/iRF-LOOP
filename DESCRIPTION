@@ -1,0 +1,16 @@
+Package: iterativeRF
+Type: Package
+Title: R Implementation of the iRF and iRF-LOOP algorithms using Ranger (fast) Random Forest under the hood
+Version: 0.1.0
+Author: David Kainer
+Maintainer: David Kainer <dkainer@outlook.com>
+Description: iRF essentially provides a boosting and feature selection aspect to standard RF by taking the feature importances 
+    from an RF run and using them as the feature sampling probabilities in the next RF run. 
+    It will keep doing this for i iterations, so some features will be culled (reach zero importance) while others get boosted. 
+    iRF-LOOP runs the iRF algorithm once for every feature in a matrix, such that each feature takes a turn to be the Y variable. 
+    If there are n features then iRF is run n times.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.2
+imports: ranger
