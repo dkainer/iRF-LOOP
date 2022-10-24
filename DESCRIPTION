@@ -13,6 +13,12 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2
-imports: ranger
+Imports: 
+    ranger,
+    doParallel,
+    foreach,
+    stats
 URL: https://github.com/dkainer/iterativeRF
 BugReports: https://github.com/dkainer/iterativeRF/issues
+Depends: 
+    R (>= 2.10)

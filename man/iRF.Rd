@@ -13,7 +13,7 @@ iRF(
   threads = 1,
   alwayssplits = NULL,
   mtry = NULL,
-  saveall = T
+  saveall = TRUE
 )
 }
 \arguments{
@@ -21,7 +21,7 @@ iRF(
 
 \item{y}{the dependent variable (i.e. the variable being predicted)}
 
-\item{ntree}{number of trees in the random forest}
+\item{ntree}{number of trees in each random forest}
 
 \item{iter}{number of iterations to run}
 
@@ -39,14 +39,28 @@ Otherwise it is the absolute number of variables to use when splitting a node.}
 \item{saveall}{if TRUE then return the final random forest from each iteration as a list of forests}
 }
 \value{
-if saveall=TRUE, returns a list of random forest objects. Otherwise one random forest object
-from the iteration that had the best model fit.
+One of two possible results:
+if saveall=TRUE, returns a list of random forest objects (one per iteration).
+if saveall=FALSE, returns the random forest object from the iteration that had the best model fit.
 }
 \description{
 iterative Random Forest
 }
+\details{
+Iterative Random Forest (iRF) is an algorithmic advancement of Random Forest (RF),
+    which takes advantage of Random Forests ability to determine feature importance, and produces a more accurate
+    model by iteratively creating weighted forests. In each iteration, the importance scores from the
+    previous iteration are used to weight features for the current forest. The effect is akin to a lasso regression since
+    some features have their importance boosted while others go to zero and are culled from the forest.
+    The result is often a more accurate set of high ranked predictors from a better fit and simpler model.
+}
 \examples{
 
-iRF(x = xmat, y = yvec, saveall=TRUE)
+data(expdata)
+irf <- iRF(x = expdata[, 1:99], y = expdata[, 100], ntree = 100, threads=1, saveall=FALSE)
+sort(irf$variable.importance, decreasing = TRUE)[1:10]
 
+}
+\references{
+Basu S, Kumbier K, Brown JB et al. (2018) Iterative random forests to discover predictive and stable high-order interactions. Proc Natl Acad Sci USA 115, 1943–1948.
 }
