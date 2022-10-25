@@ -20,6 +20,9 @@ Given a data set of n features and m samples, iRF Leave One Out Prediction (iRF-
 ### Comparison to GENIE3
 GENIE3 can be considered as an **RF-LOOP** algorithm. When used on a gene expression matrix, GENIE3 produces a predictive expression network (PEN) using Random Forest. With iRF-LOOP the **RF is replaced with iterative RF**. *Walker et al (2022)* showed that using iRF instead of RF when generating a PEN results in a smaller and more biologically correct network due to the feature selection and boosting process of iRF. This comes at the cost of additional computational complexity.
 
+### Comparison to Pearson's correlation (e.g Coexpression or WGCNA)
+Given a feature matrix it is common to generate a network by taking pairwise correlations betwen features. This is very fast, but each model cor(fi,fj) fails to take into account the joint effects of all the other features, so it is unrealistic. It does, however, produce both positive and negative edge weights, unlike the RF-based methods.
+
 ### A note about computational speed
 While this package uses Ranger (a very fast Random Forest) under the hood, it is only parallelized by threads on a single machine. This is usually fine for datasets where you have hundreds or even thousands of features as long as you have a reasonably powerful machine with a good number of cores. However, if your dataset has 10s of thousands of features (e.g. a population-wide whole transcriptome dataset with 30,000 genes measured in 1000 samples) and you have access to a compute cluster, then you should use the HPC implementation available here:
 
