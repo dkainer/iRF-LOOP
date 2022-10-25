@@ -33,6 +33,7 @@
 #'     If you set **usepvals=TRUE** then Ranger will use Altmann's method for calculating importance P-values using permutation.
 #'     iRF will then cull features based on having a conservative False Discovery Rate Q > 0.2 (i.e. it sets their importance to 0).
 #'     This usually results in a harsher culling of features than just allowing importances to naturally fall to zero.
+#'     **WARNING**: using pvalues will be MUCH slower than not using it. So it may not be a good idea when performing iRF-LOOP
 #'
 #'
 #' @references Basu S, Kumbier K, Brown JB et al. (2018) Iterative random forests to discover predictive and stable high-order interactions. Proc Natl Acad Sci USA 115, 1943–1948.
