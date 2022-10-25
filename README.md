@@ -1,9 +1,13 @@
-# iRF-LOOP
-R Implementation of the iRF-LOOP algorithm as per the following papers:
+# iRF-LOOP R Package
+R Implementation of the iRF and iRF-LOOP algorithm. Please cite the following papers if you use iRF-LOOP:
 
 ```Cliff, A., Romero, J., Kainer, D., Walker, A., Furches, A., & Jacobson, D. (2019). A high-performance computing implementation of iterative random forest for the creation of predictive expression networks. Genes, 10(12), 996.```
 
 ```Walker, A. M., Cliff, A., Romero, J., Shah, M. B., Jones, P., Gazolla, J. G. F. M., ... & Kainer, D. (2022). Evaluating the performance of random forest and iterative random forest based methods when applied to gene expression data. Computational and Structural Biotechnology Journal, 20, 3372-3386.```
+
+### What's in the package
+* a Ranger-based custom implementation of iterative Random Forest (iRF)
+* an implementation of iRF-LOOP built upon iRF
 
 ### The purpose of iRF-LOOP
 iRF-LOOP is used to convert a matrix of features data into a network. It determines which features in the input matrix are most predictive of which other features in the input matrix, and outputs those relationships as weighted network edges. It can be applied to any sort of numeric data matrix where features are columns and samples are rows. It is very applicable to biological datasets such as gene expression, metabolomics, etc.
