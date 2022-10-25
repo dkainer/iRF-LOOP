@@ -1,9 +1,9 @@
 # iRF-LOOP R Package
-R Implementation of the iRF and iRF-LOOP algorithm. Please cite the following papers if you use iRF-LOOP:
+R Implementation of the iRF and iRF-LOOP algorithm. iRF-LOOP stands for **iterative Random Forest - Leave One Out Prediction**. Please cite the following papers if you use iRF-LOOP:
 
-```Cliff, A., Romero, J., Kainer, D., Walker, A., Furches, A., & Jacobson, D. (2019). A high-performance computing implementation of iterative random forest for the creation of predictive expression networks. Genes, 10(12), 996.```
+>Cliff, A., Romero, J., Kainer, D., Walker, A., Furches, A., & Jacobson, D. (2019). A high-performance computing implementation of iterative random forest for the creation of predictive expression networks. Genes, 10(12), 996.
 
-```Walker, A. M., Cliff, A., Romero, J., Shah, M. B., Jones, P., Gazolla, J. G. F. M., ... & Kainer, D. (2022). Evaluating the performance of random forest and iterative random forest based methods when applied to gene expression data. Computational and Structural Biotechnology Journal, 20, 3372-3386.```
+>Walker, A. M., Cliff, A., Romero, J., Shah, M. B., Jones, P., Gazolla, J. G. F. M., ... & Kainer, D. (2022). Evaluating the performance of random forest and iterative random forest based methods when applied to gene expression data. Computational and Structural Biotechnology Journal, 20, 3372-3386.
 
 ### What's in the package
 * a Ranger-based custom implementation of iterative Random Forest (iRF)
@@ -18,9 +18,9 @@ Given a data set of n features and m samples, iRF Leave One Out Prediction (iRF-
 ![alt text](https://www.mdpi.com/genes/genes-10-00996/article_deploy/html/images/genes-10-00996-g001.png)
 
 ### Comparison to GENIE3
-GENIE3 can be considered as an **RF-LOOP** algorithm. When used on a gene expression matrix, GENIE3 produces a predictive expression network (PEN) using Random Forest. With iRF-LOOP the **RF is replaced with iterative RF**. *Walker et al (2022)* showed that using iRF instead of RF when generating a PEN results in a smaller and more biologically correct network due to the feature selection and boosting process of iRF.
+GENIE3 can be considered as an **RF-LOOP** algorithm. When used on a gene expression matrix, GENIE3 produces a predictive expression network (PEN) using Random Forest. With iRF-LOOP the **RF is replaced with iterative RF**. *Walker et al (2022)* showed that using iRF instead of RF when generating a PEN results in a smaller and more biologically correct network due to the feature selection and boosting process of iRF. This comes at the cost of additional computational complexity.
 
-### A note about Speed
-While this package uses Ranger (a very fast Random Forest) under the hood, it is only parallelized by threads on a single machine. This is usually fine for datasets where you have hundreds or even thousands of features as long as you have a reasonably powerful machine with lots of cores. However, if your dataset has 10s of thousands of features (e.g. a population-wide whole transcriptome dataset with 30000 genes measured in 1000 samples), then you should use the HPC implementation available here:
+### A note about computational speed
+While this package uses Ranger (a very fast Random Forest) under the hood, it is only parallelized by threads on a single machine. This is usually fine for datasets where you have hundreds or even thousands of features as long as you have a reasonably powerful machine with a good number of cores. However, if your dataset has 10s of thousands of features (e.g. a population-wide whole transcriptome dataset with 30,000 genes measured in 1000 samples) and you have access to a compute cluster, then you should use the HPC implementation available here:
 
 https://github.com/Jromero1208/RangerBasediRF
