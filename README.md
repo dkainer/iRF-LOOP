@@ -54,9 +54,9 @@ expdata[1:10,1:10]
 # use the first 99 genes to predict the expression of the 100th gene
 irf <- iRF(x = expdata[, 1:99], y = expdata[, 100], iter=5, saveall=FALSE, num.trees = 500)
 ```
-The RF from the best iteration is saved, and the stats from each iteration are shown in the console.
-The first iteration is the equivalent of standard RF. Subsequent iterations improve the fit of the model and 
-it's Out of Bag predictive ability while decreasing the number of active features.
+The RF from the best iteration is returned (since saveall=FALSE), while the stats from each iteration are shown in the console.
+The first iteration is the equivalent of standard RF. Subsequent iterations often improve the fit of the model and 
+it's Out Of Bag predictive ability while decreasing the number of active features to make a simpler model.
 ```
 iRF iteration  1 
 =================
@@ -102,3 +102,26 @@ R^2:    0.8010097
 OOB cor(y,yhat):    0.8956238 
 Features with importance > 0: 34 
 ```
+
+#### Predictive Expression Network using iRF-LOOP
+```
+data(expdata)
+pen <- iRF_LOOP(expdata, num.trees=100)
+# view the top 10 edges of highest importance
+pen[order(pen$imp, decreasing = TRUE),][1:10,]
+
+         featX     featY       imp           R2
+1313 AT1G01120 AT1G01335 0.9676960 -0.005796995
+7831 AT1G01710 AT1G01725 0.7650734  0.763543756
+7923 AT1G01720 AT1G01650 0.7502535  0.842584195
+8717 AT1G01790 AT1G01320 0.6986644  0.720483127
+8517 AT1G01770 AT1G01480 0.6841163  0.590734042
+7631 AT1G01700 AT1G01570 0.6773845  0.732813613
+9823 AT1G01920 AT1G01510 0.6364524  0.916301947
+5743 AT1G01510 AT1G01920 0.6318746  0.864956889
+629  AT1G01570 AT1G01150 0.6128574  0.418503076
+2120 AT1G01190 AT1G01380 0.5869559  0.531729914
+```
+
+The resulting PEN has 3349 edges (out of a possible 9900). These are directed edges - X may predict Y, but Y may not predict X with the same importance or at all.
+You can see that the top edge in the PEN came from an iRF model with very poor fit (R2 ~ 0) so should be viewed with skepticism.
