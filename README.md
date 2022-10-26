@@ -1,5 +1,5 @@
-# iRF-LOOP R Package
-R Implementation of the iRF and iRF-LOOP algorithm. iRF-LOOP stands for **iterative Random Forest - Leave One Out Prediction**. Please cite the following papers if you use iRF-LOOP:
+# iRF-LOOP
+An R Implementation of the iRF and iRF-LOOP algorithms. iRF-LOOP stands for **iterative Random Forest - Leave One Out Prediction**. Please cite the following papers if you use iRF-LOOP:
 
 >Cliff, A., Romero, J., Kainer, D., Walker, A., Furches, A., & Jacobson, D. (2019). A high-performance computing implementation of iterative random forest for the creation of predictive expression networks. Genes, 10(12), 996.
 
@@ -10,7 +10,18 @@ R Implementation of the iRF and iRF-LOOP algorithm. iRF-LOOP stands for **iterat
 * an implementation of iRF-LOOP built upon iRF
 
 ### The purpose of iRF-LOOP
-iRF-LOOP is used to convert a matrix of features data into a network. It determines which features in the input matrix are most predictive of which other features in the input matrix, and outputs those relationships as weighted network edges. It can be applied to any sort of numeric data matrix where features are columns and samples are rows. It is very applicable to biological datasets such as gene expression, metabolomics, etc.
+iRF-LOOP is used to convert a matrix of features data into a "predictive" network. It determines which features in the input matrix are most predictive of which other features in the input matrix, and outputs those relationships as weighted network edges (in data.frame format). It can be applied to any sort of numeric data matrix where features are columns and samples are rows. It is very applicable to biological datasets such as gene expression, metabolomics, etc.
+
+### Installation
+From the R console, do this:
+```
+BiocManager::install("dkainer/iRF-LOOP")
+```
+or
+```
+library(devtools)
+install_github("dkainer/iRF-LOOP")
+```
 
 ## The iRF-LOOP Algorithm
 Given a data set of n features and m samples, iRF Leave One Out Prediction (iRF-LOOP) starts by treating one feature as the dependent variable (Y) and the remaining n − 1 features as predictors (X matrix). Using an iRF model, the importance of each feature in X, for predicting Y, is calculated. The result is a vector, of size n, of importance scores (the importance score of Y, for predicting itself is set to zero). This process is repeated for each of the n features, requiring n iRF runs which produces n vectors of importance scores. To keep importance scores on the same scale across the n runs, each run's result is normalized relative to the sum of that run's importance score vector. When all n runs are combined it represents a directed network where features are the nodes, and the ability of one feature to predict another (conditional on all other features) is represented as edges between nodes with weights defined by normalized importance scores.
