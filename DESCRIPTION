@@ -1,4 +1,4 @@
-Package: iRF-LOOP
+Package: iRFLOOP
 Type: Package
 Title: R Implementation of the iRF and iRF-LOOP algorithms using Ranger (fast) Random Forest under the hood
 Version: 0.1.0
