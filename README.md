@@ -1,4 +1,4 @@
-# iRF-LOOP
+# iRFLOOP R Package
 An R Implementation of the iRF and iRF-LOOP algorithms. iRF-LOOP stands for **iterative Random Forest - Leave One Out Prediction**. Please cite the following papers if you use iRF-LOOP:
 
 >Cliff, A., Romero, J., Kainer, D., Walker, A., Furches, A., & Jacobson, D. (2019). A high-performance computing implementation of iterative random forest for the creation of predictive expression networks. Genes, 10(12), 996.
