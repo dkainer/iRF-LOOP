@@ -1,4 +1,4 @@
-Package: iterativeRF
+Package: iRF-LOOP
 Type: Package
 Title: R Implementation of the iRF and iRF-LOOP algorithms using Ranger (fast) Random Forest under the hood
 Version: 0.1.0
@@ -18,7 +18,7 @@ Imports:
     doParallel,
     foreach,
     stats
-URL: https://github.com/dkainer/iterativeRF
-BugReports: https://github.com/dkainer/iterativeRF/issues
+URL: https://github.com/dkainer/iRF-LOOP
+BugReports: https://github.com/dkainer/iRF-LOOP/issues
 Depends: 
     R (>= 2.10)
