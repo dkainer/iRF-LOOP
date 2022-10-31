@@ -72,6 +72,7 @@ iRF_LOOP <- function(xmat, iter=3, first = NULL, last = NULL, verbose=FALSE,  ..
   {
     for(g in first:last)
     {
+      print(colnames(xmat)[g])
       y   <- xmat[,g]
       x   <- xmat[,-g]
       irf <- iRF(x = x, y = y, iter=iter, mtry = NULL, saveall = FALSE, verbose=verbose, ...)  # must have saveall=F
@@ -81,6 +82,7 @@ iRF_LOOP <- function(xmat, iter=3, first = NULL, last = NULL, verbose=FALSE,  ..
   } else {
     for(g in 1:ncol(xmat))
     {
+      print(colnames(xmat)[g])
       y   <- xmat[,g]
       x   <- xmat[,-g]
       irf <- iRF(x = x, y = y, iter=iter, mtry = NULL, saveall = FALSE, verbose=verbose, ...)  # must have saveall=F
