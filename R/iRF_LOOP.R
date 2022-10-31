@@ -52,8 +52,8 @@
 #' ## note that the some top edges may come from a very poor model (low R2)
 #'
 #' @seealso \link[iterativeRF]{iRF}
-globalVariables("g") # we need this to make foreach work with CRAN checks
-iRF_LOOP <- function(xmat, iter=3, verbose=FALSE,  ...)
+#globalVariables("g") # we need this to make foreach work with CRAN checks
+iRF_LOOP <- function(xmat, iter=3, first = NULL, last = NULL, verbose=FALSE,  ...)
 {
   #for each feature in the X matrix, use it as a Y vector in iRF
   # out <- foreach::foreach(g = 1:ncol(xmat), .export = "iRF") %do%
@@ -66,7 +66,11 @@ iRF_LOOP <- function(xmat, iter=3, verbose=FALSE,  ...)
   # }
 
   out <- list()
-  for(g in 1:ncol(xmat))
+
+  ## if user has declared a 'chunk' of columns to be predicted...
+  if(!is.null(first) & !is.null(last) & first > 0 & last >= first)
+  {
+    for(g in first:last)
     {
       y   <- xmat[,g]
       x   <- xmat[,-g]
@@ -74,6 +78,16 @@ iRF_LOOP <- function(xmat, iter=3, verbose=FALSE,  ...)
       df  <- data.frame(featX = colnames(xmat)[-g], featY = colnames(xmat)[g], imp=irf$variable.importance, R2=irf$r.squared, row.names = NULL)
       out[[g]] <- df[df$imp>0,]
     }
+  } else {
+    for(g in 1:ncol(xmat))
+    {
+      y   <- xmat[,g]
+      x   <- xmat[,-g]
+      irf <- iRF(x = x, y = y, iter=iter, mtry = NULL, saveall = FALSE, verbose=verbose, ...)  # must have saveall=F
+      df  <- data.frame(featX = colnames(xmat)[-g], featY = colnames(xmat)[g], imp=irf$variable.importance, R2=irf$r.squared, row.names = NULL)
+      out[[g]] <- df[df$imp>0,]
+    }
+  }
 
   out <- do.call('rbind', out)
   return(out)
